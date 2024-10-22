@@ -27,8 +27,13 @@ class DataTransformation:
         try:
             #step 1: Define numerical and categorical variables 
             numerical_cols= ['math score', 'reading score', 'writing score']
-            categorical_cols= ['gender', 'race/ethnicity', 'parental level of education', 
-                                'lunch', 'test preparation course']
+            categorical_cols= ['gender', 
+                               'race/ethnicity', 
+                               'parental level of education',
+                                 'lunch',
+                                 'test preparation course'
+                                 ]
+           
             num_pipeline=Pipeline(
                 steps=[
                     ("imputer", SimpleImputer(strategy='median')),
@@ -77,13 +82,14 @@ class DataTransformation:
             
             logging.info("Obtaining preprocceing data")
             preprocessor_obj = self.get_data_tranformer_object()
+            
             input_feature_train_transformed=preprocessor_obj.fit_transform(input_feature_train)
-            input_feature_test_transformed=preprocessor_obj.fit_transform(input_feature_test)
+            input_feature_test_transformed=preprocessor_obj.transform(input_feature_test)
             logging.info("Data transformation completed successfully.")
             train_arr = np.c_[
-                input_feature_train, np.array(target_train)
+                input_feature_train_transformed, np.array(target_train)
             ]
-            test_arr = np.c_[input_feature_test, np.array(target_test)]
+            test_arr = np.c_[input_feature_test_transformed, np.array(target_test)]
 
             #step 4: svae the preprocessor obj for future use
             save_object(file_path=self.DataTransformation_config.preprocessor_obj_file_path,
