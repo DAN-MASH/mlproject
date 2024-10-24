@@ -54,7 +54,7 @@ class ModelTrainer:
                 "CatBoosting Regressor": CatBoostRegressor(verbose=False),
                 "AdaBoost Regressor": AdaBoostRegressor(),
             }
-            
+
             params={
                 "Decision Tree": {
                     'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
@@ -122,5 +122,8 @@ class ModelTrainer:
 
         except Exception as e:
             raise CustomException(e,sys)
+
+
+
 
 
